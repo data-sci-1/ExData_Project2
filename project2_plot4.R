@@ -22,10 +22,14 @@ by_year_summary <- summarize_each(by_year, c("sum"), Emissions)
 png(file = "project2_plot4.png", width = 480, height = 480, units="px", type="windows") 
 par(cex.axis=.75, cex.lab=.75, cex.main=.9)
 
-# plot data
-plot(Emissions ~ year, by_year_summary, xlab = "Year", ylab = "Emissions from Coal (tons)", col = "steelblue", pch = 19, main = "Emissions From Coal in the US")
+# create linear regression line
 by_year_model <- lm(Emissions ~ year, by_year_summary)
-abline(by_year_model, lwd = 1, col = "steelblue")
+
+with(by_year_summary, {
+  # plot data
+  plot(Emissions ~ year, xlab = "Year", ylab = "Emissions from Coal (tons)", col = "steelblue", pch = 19, main = "Emissions From Coal in the US")
+  abline(by_year_model, lwd = 1, col = "steelblue")
+})
 
 # close png device
 dev.off()
